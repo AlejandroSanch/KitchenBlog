@@ -1,27 +1,24 @@
 import React from "react";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import HelloWorldApp from "./components/helloworld";
+import { exp } from "react-native-reanimated";
 import { NavigationContainer } from "@react-navigation/native";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-
-const Stack = createNativeStackNavigator();
-
 import Register from "./components/Register";
-import SideMenu from "./components/AddingPost";
-import MyDrawer from "./components/AddingPost";
-import Drawer from "./components/Drawer"
+import Login from "./components/Login";
 
-function MyStack(){
-    return(
-    <Stack.Navigator>
-        <Stack.Screen name="Drawer" component={Navigation}/>
-        <Stack.Screen name="Register" component={Register}/>
-    </Stack.Navigator>
-    );
+
+const Drawer = createDrawerNavigator()
+
+function App(){
+  return(
+    <NavigationContainer>
+    <Drawer.Navigator>
+      <Drawer.Screen name = "ProfileScreen" component={HelloWorldApp}/>
+      <Drawer.Screen name = "Register" component={Register}/>
+      <Drawer.Screen name = "Login" component={Login}/>
+    </Drawer.Navigator>
+    </NavigationContainer>
+  )
 }
 
-export default function App() {
-    return (
-        <NavigationContainer>
-          <MyStack/>
-        </NavigationContainer>
-    );
-};
+export default App;
