@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Box, Text, Heading, VStack, FormControl,Input, Link,
    Button, HStack, Center,NativeBaseProvider, } from "native-base";
 import {ScrollView, SafeAreaView} from "react-native";
-import {collection, addDoc} from 'firebase/firestore';
+import {collection, addDoc, db} from 'firebase/firestore';
 
 const Register = () => {
 
