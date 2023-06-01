@@ -1,13 +1,20 @@
 import React from "react";
 import {View, StyleSheet, ScrollView} from "react-native";
 import Pin from "../components/Pin";
+import pins from "../assets/data/pins";
 
 const Home = () =>{
     return (
     <ScrollView>
-        <View styles={styles.container}>
-         <Pin/>
-         <Pin/>
+    {/* 1st column */}
+        <View style={styles.container}>
+           <View style={styles.column}>
+                {pins.filter((_,index)=> index % 2 === 0).map(pin => <Pin pin={pin} key={pin.id}/>)}
+           </View>
+    {/*2nd column*/}
+           <View style={styles.column}>
+           {pins.filter((_,index)=> index % 2 === 1).map(pin => <Pin pin={pin} key={pin.id}/>)}
+           </View>
         </View>
     </ScrollView>
     
@@ -15,10 +22,11 @@ const Home = () =>{
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
         padding: 10,
+        flexDirection: "row",
+    },
+    column: {
+        flex: 1,
     },
     
 });

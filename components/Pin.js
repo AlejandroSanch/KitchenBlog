@@ -1,48 +1,61 @@
+import { useState, React, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {Text, View, Image, StyleSheet, Pressable} from "react-native";
 import {AntDesign} from "@expo/vector-icons";
-import { useState } from "react";
 
-const [ratio, setRatio] = useState(1);
+const Pin = (props) => {
 
+  const navigation = useNavigation();
+  const {image, title} =props.pin;
+  const [ratio, setRatio] = useState(1);
 
-const onLike = () =>{};
+  useEffect(() =>{
+    if(image){
+        Image.getSize(image, (width, height) => setRatio(width/height));
+    }},[image])
 
-function Pin(){
+  const onLike = () => {};
+
     return(
-    <View styles={styles.pin}>
+    <View style={styles.pin}>
         <View>
-             <Image source={{uri:"https://wallpaperaccess.com/full/317501.jpg"
+             <Image source={{uri: image
             }}alt="Alternate Text"size="xs" style={[styles.image, {aspectRatio: ratio}]}/>
+            <View>
             <Pressable onPress={onLike} style={styles.heartBtn}>
                 <AntDesign name="hearto" size={16} color="black"/>
             </Pressable>
+            </View>
         </View>
-        <Text style={styles.title}>Texto</Text>
+        <Text style={styles.title} numberOfLines={2}>{title}</Text>
     </View>
-    )
-}
+    );
+};
 
 
 
 const styles = StyleSheet.create({
     title: {
-        fontSize :20,
-        fontWeight:"bold",
-        margin: 10,
+        fontSize :16,
+        lineHeight: 22,
+        fontWeight:"600",
+        margin: 5,
+        color: "#181818",
     },
     image: {
         width: "100%",
-        borderRadius: 25,
+        borderRadius: 5,
         
     },
     pin: {
         width: "100%",
+        padding: 4,
     },
     heartBtn:{
         backgroundColor: "#D3CFD4",
         position: "absolute",
-        bottom: 10,
-        right: 10,
+        bottom: 5,
+        right: 5,
         padding: 5,
         borderRadius: 50,
 
