@@ -14,8 +14,8 @@ function DrawerNav(){
   return(
     <NavigationContainer>
         <Drawer.Navigator>
-          <Drawer.Screen name = "Home" component={Home}/>
-            <Drawer.Screen name = "ProfileScreen" component={Profile}/>
+          <Drawer.Screen name = "Menu Principal" component={Home}/>
+            <Drawer.Screen name = "Perfil" component={Profile}/>
             <Drawer.Screen name = "Register" component={Register}/>
             <Drawer.Screen name = "Login" component={Login}/>
             <Drawer.Screen name = "ContentPub" component={ContentPub}/>

@@ -6,10 +6,9 @@ import { NavigationContainer } from "@react-navigation/native";
 
 function App(){
   return(
-    
-        <DrawerNav/>
-    
-    
+
+  <DrawerNav/>
+  
   )
 }
 
