@@ -5,6 +5,7 @@ import Login from "./Login";
 import Home from "./Home";
 import Profile from "./profile";
 import Register from "./Register";
+import ContentPub from "./ContentPub";
 
 
 const Drawer = createDrawerNavigator()
@@ -17,6 +18,7 @@ function DrawerNav(){
             <Drawer.Screen name = "ProfileScreen" component={Profile}/>
             <Drawer.Screen name = "Register" component={Register}/>
             <Drawer.Screen name = "Login" component={Login}/>
+            <Drawer.Screen name = "ContentPub" component={ContentPub}/>
         </Drawer.Navigator>
     </NavigationContainer>
   )

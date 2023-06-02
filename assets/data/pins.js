@@ -4,12 +4,16 @@ export default [
       image:
         "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/pinterest/0.jpeg",
       title: "notJust Dev Hoodie",
+      ingredients: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.",
+      content: "Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.",
     },
     {
       id: "1",
       image:
         "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/pinterest/1.jpeg",
       title: "Programmer working on laptop computer in office studio",
+      ingredients: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.",
+      content: "Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.",
     },
     {
       id: "2",
