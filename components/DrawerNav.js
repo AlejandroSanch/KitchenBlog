@@ -6,7 +6,7 @@ import Home from "./Home";
 import Profile from "./profile";
 import Register from "./Register";
 import ContentPub from "./ContentPub";
-
+import AddingPost from "./AddingPost";
 
 const Drawer = createDrawerNavigator()
 
@@ -16,8 +16,7 @@ function DrawerNav(){
         <Drawer.Navigator>
           <Drawer.Screen name = "Menu Principal" component={Home}/>
             <Drawer.Screen name = "Perfil" component={Profile}/>
-            <Drawer.Screen name = "Register" component={Register}/>
-            <Drawer.Screen name = "Login" component={Login}/>
+            <Drawer.Screen name = "Añadir Publicación" component={AddingPost}/>
             <Drawer.Screen name = "ContentPub" component={ContentPub}/>
         </Drawer.Navigator>
     </NavigationContainer>

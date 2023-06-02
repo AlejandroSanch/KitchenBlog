@@ -1,3 +1,5 @@
+//Dummy info used to create the FrontEnd
+
 export default [
     {
       id: "0",

@@ -1,6 +1,6 @@
 import React from "react";
 
-import List from "./list";
+import List from "../components/List";
 import pins from "../assets/data/pins";
 
 const Home = () =>{

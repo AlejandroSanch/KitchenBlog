@@ -1,6 +1,6 @@
 import React from "react";
 import {View, Text, StyleSheet, Image} from "react-native";
-import List from "./list";
+import List from "../components/List";
 import pins from "../assets/data/pins";
 import { ScrollView } from "react-native-gesture-handler";
 
