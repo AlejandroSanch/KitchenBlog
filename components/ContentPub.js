@@ -1,32 +1,75 @@
 
 {/*PinScreen*/}
 import {View, Text, StyleSheet, Image} from 'react-native';
-import pins from '../assets/data/pins';
+
 import { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import { useRoute } from '@react-navigation/native';
+import { useNhostClient } from '@nhost/react';
 
 
 const ContentPub = () => {
 
-    const pin = pins[1];
-
     const [ratio, setRatio] = useState(1);
+    const [pin, setPin] = useState(null);
+
+    const nhost = useNhostClient();
+    const route = useRoute();
+
+    const GET_PIN_QUERY = `
+    query MyQuery ($id: uuid!)
+    {
+        pins_by_pk(id: $id) 
+        {
+            image
+            title
+            ingredients
+            preparation
+            created_at
+            id
+            user 
+            {
+                displayName
+                id
+                avatarUrl
+            }
+        }
+    }
+`
+
+    const pinId = route.params?.id;
+
+    const fetchPin = async (pinId) => {
+        const response = await nhost.graphql.request(GET_PIN_QUERY,{id: pinId});
+        if(response.error){
+            Alert.alert("Error fetching the pin");
+        }else{
+            setPin(response.data.pins_by_pk);
+        }
+    }
 
     useEffect(() =>{
-        if(pin.image){
-            Image.getSize(pin.image, (width, height) => setRatio(width/height));
+        fetchPin(pinId);
+    }, [pinId]);
+
+    useEffect(() =>{
+        if(pin?.image){
+            Image.getSize(pin?.image, (width, height) => setRatio(width/height));
         }},[pin])
+
+    if (!pin){
+        return <Text>Pin not found</Text>
+    }
 
     return(
             <ScrollView>
                 <View style={styles.root}>
                     <Image source ={{uri: pin.image}} style={[styles.image, {aspectRatio: ratio}]}/>
                     <Text style={styles.title}>{pin.title}</Text>
-                    <Text style={styles.subtitle}>Ingredients</Text>
+                    <Text style={styles.subtitle}>Ingredientes</Text>
                     <Text style={styles.content}>{pin.ingredients}</Text>
-                    <Text style={styles.subtitle}>content</Text>
-                    <Text style={styles.content}>{pin.content}</Text>
+                    <Text style={styles.subtitle}>preparacion</Text>
+                    <Text style={styles.content}>{pin.preparation}</Text>
                 </View>
             </ScrollView>
     )

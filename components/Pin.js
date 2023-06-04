@@ -6,7 +6,7 @@ import {AntDesign} from "@expo/vector-icons";
 const Pin = (props) => {
 
   const navigation = useNavigation();
-  const {image, title} =props.pin;
+  const {id, image, title} =props.pin;
   const [ratio, setRatio] = useState(1);
 
   useEffect(() =>{
@@ -16,8 +16,12 @@ const Pin = (props) => {
 
   const onLike = () => {};
 
+  const goToPinPage = () => {
+    navigation.navigate("ContentPub", {id});
+  };
+
     return(
-    <View style={styles.pin}>
+    <Pressable onPress= {goToPinPage} style={styles.pin}>
         <View>
              <Image source={{uri: image
             }}alt="Alternate Text"size="xs" style={[styles.image, {aspectRatio: ratio}]}/>
@@ -28,7 +32,7 @@ const Pin = (props) => {
             </View>
         </View>
         <Text style={styles.title} numberOfLines={2}>{title}</Text>
-    </View>
+    </Pressable>
     );
 };
 
