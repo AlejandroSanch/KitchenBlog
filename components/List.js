@@ -8,7 +8,6 @@ const numRows = 2;
 const List = ({pins}) => {
     return(
         <ScrollView>
-        {/* 1st column */}
             <View style={styles.container}>
                 {Array.from(Array(numRows)).map((_, colIndex) =>(
                     <View style={styles.column} key={`column_${colIndex}`}>

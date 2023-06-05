@@ -1,13 +1,24 @@
 import React from "react";
-import {View, Text, StyleSheet, Image} from "react-native";
+import {View, Text, StyleSheet, Image, Pressable} from "react-native";
 import List from "../components/List";
 import pins from "../assets/data/pins";
 import { ScrollView } from "react-native-gesture-handler";
+import {Entypo, Feather} from "@expo/vector-icons";
+import { useSignOut } from "@nhost/react";
 
 
 const Profile = () =>{
+
+    const {signOut} = useSignOut();
+
+
     return (
         <ScrollView style={styles.container}>
+            <View>
+                <Pressable onPress={signOut}>
+                    <Feather name="share" size={24} color="black" style={styles.icons}/>
+                </Pressable>
+            </View>
             <View style={styles.header}>
                 <Image source={{uri: "https://wallpaperaccess.com/full/317501.jpg"
                  }} alt="Alternate Text" size={"xl"}
@@ -44,6 +55,11 @@ const styles = StyleSheet.create({
     },
     header: {
         alignItems: "center"
+    },
+    icons: {
+        flexDirection: "row",
+         alignSelf: "flex-end",
+        padding: 10,
     }
 })
 export default Profile;

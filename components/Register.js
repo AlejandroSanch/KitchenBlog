@@ -1,39 +1,28 @@
 import React, {useState} from "react";
 import { Box, Text, Heading, VStack, FormControl,Input, Link,
-   Button, HStack, Center,NativeBaseProvider, } from "native-base";
+   Button, HStack, Center } from "native-base";
 import {ScrollView, SafeAreaView} from "react-native";
-import {collection, addDoc, db} from 'firebase/firestore';
+import { useNhostClient } from "@nhost/react";
 
 const Register = () => {
 
-  const [state, setState] = useState({
-    name: "",
-    username: "",
-    email: "",
-    pwd: ""
+  const nhost = useNhostClient();
+
+  const onRegisterPressed = async () => {
+    const result = await nhost.auth.signUp({
+      email: email,
+      password: password,
+      options:{
+        displayName: name
+      }
   })
-  
-const handleChangeText=(name,value) =>{
-  setState({ ...state, [name]: value})}
 
-const SaveNewUser = async () => {
-  if(state.name === '' || state.email=='' || state.username=='' || state.pwd==''){
-    alert('Complete todos los campos')
-  }else{
-    await addDoc(collection(db, "users"), {
-      name: state.name,
-      username: state.username,
-      email: state.email,
-      pwd: state.pwd
-    });
+  console.log(result);
 
-    console.log(docRef.id);
-  }
-  
-}
+  };
 
   return(
-    <ScrollView>
+  <ScrollView>
     <Center w="100%">
       <Box safeArea p="2" py="8" w="90%" maxW="290">
         <Heading size="lg" fontWeight="600" color="coolGray.800" _dark={{
@@ -47,10 +36,6 @@ const SaveNewUser = async () => {
             <Input onChangeText={(value) => handleChangeText('name', value)}/>
           </FormControl>
           <FormControl>
-            <FormControl.Label>Nombre de Usuario</FormControl.Label>
-            <Input onChangeText={(value) => handleChangeText('username', value)}/>
-          </FormControl>
-          <FormControl>
             <FormControl.Label>Correo Electronico</FormControl.Label>
             <Input onChangeText={(value) => handleChangeText('email', value)}/>
           </FormControl>
@@ -58,7 +43,7 @@ const SaveNewUser = async () => {
             <FormControl.Label>Contraseña</FormControl.Label>
             <Input type="password" onChangeText={(value) => handleChangeText('pwd', value)}/>
           </FormControl>
-          <Button mt="2" colorScheme="indigo" onPress={()=> SaveNewUser()}>
+          <Button mt="2" colorScheme="indigo" onPress={()=> onRegisterPressed()}>
             Iniciar Sesion
           </Button>
           <HStack mt="6" justifyContent="center">
@@ -66,18 +51,9 @@ const SaveNewUser = async () => {
         </VStack>
       </Box>
     </Center>
-    </ScrollView>
-
+  </ScrollView>
   );
 };
 
-    export default () => {
-        return (
-          <NativeBaseProvider>
-            <Center>
-                <Register/>
-            </Center>
-          </NativeBaseProvider>
-        );
-    };
+export default Register;
     

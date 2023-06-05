@@ -6,6 +6,9 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { NhostClient, NhostProvider } from "@nhost/react";
 import * as SecureStore from "expo-secure-store";
+import Register from "./components/Register";
+import SignUpScreen from "./components/SignUpScreen";
+import SignInScreen from "./components/SignInScreen";
 
 const nhost = new NhostClient({
   backendUrl: "https://eqkexbkhlqgjrwoqlcmh.nhost.run",
@@ -16,7 +19,7 @@ const nhost = new NhostClient({
 function App(){
   return(
     <NhostProvider nhost={nhost}>
-      <DrawerNav/>
+        <DrawerNav/>
     </NhostProvider>
 
   )

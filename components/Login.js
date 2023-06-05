@@ -3,6 +3,10 @@ import { Box, Text, Heading, VStack, FormControl,Input, Link,
    Button, HStack, Center,NativeBaseProvider, } from "native-base";
 import {ScrollView, SafeAreaView} from "react-native";
 import {getFirestore,collection, addDoc, db} from 'firebase/firestore';
+import { useNavigation } from "@react-navigation/native";
+
+import Register from "./Register";
+
 
 const Login = () => {
 
@@ -32,6 +36,8 @@ const SaveNewUser = async () => {
   
 }
 
+
+
   return(
     <ScrollView>
     <Center w="100%">
@@ -47,9 +53,11 @@ const SaveNewUser = async () => {
             <FormControl.Label>Contraseña</FormControl.Label>
             <Input type="password" onChangeText={(value) => handleChangeText('pwd', value)}/>
           </FormControl>
-          <Button mt="2" colorScheme="indigo" onPress={()=> SaveNewUser()}>
+          <Button mt="2" colorScheme="indigo">
             Iniciar Sesion
           </Button>
+
+          <Text>No tienes una cuenta?</Text>
           <HStack mt="6" justifyContent="center">
           </HStack>
         </VStack>

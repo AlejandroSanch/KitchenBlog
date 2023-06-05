@@ -7,17 +7,37 @@ import Profile from "./profile";
 import Register from "./Register";
 import ContentPub from "./ContentPub";
 import AddingPost from "./AddingPost";
+import SignInScreen from "./SignInScreen";
+import SignUpScreen from "./SignUpScreen";
+import { useAuthenticationStatus } from "@nhost/react";
+import { ActivityIndicator } from "react-native-web";
 
 const Drawer = createDrawerNavigator()
 
 function DrawerNav(){
+
+  const {isLoading ,isAuthenticated} = useAuthenticationStatus();
+
+  /*if(isLoading){
+    return <ActivityIndicator/>
+  }*/
+
   return(
     <NavigationContainer>
         <Drawer.Navigator>
-          <Drawer.Screen name = "Menu Principal" component={Home}/>
+          
+          {!isAuthenticated ?(
+            <>
+            <Drawer.Screen name="SignInScreen" component={SignInScreen} options={{headerShown: false}}/>
+            <Drawer.Screen name="SignUpScreen" component={SignUpScreen} options={{headerShown: false}}/>
+            </>
+          ):(
+            <>
+            <Drawer.Screen name = "Menu Principal" component={Home}/>
             <Drawer.Screen name = "Perfil" component={Profile}/>
             <Drawer.Screen name = "Añadir Publicación" component={AddingPost}/>
-            <Drawer.Screen name = "ContentPub" component={ContentPub}/>
+            </>
+            )}
         </Drawer.Navigator>
     </NavigationContainer>
   )
