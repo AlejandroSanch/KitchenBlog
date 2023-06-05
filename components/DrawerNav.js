@@ -11,6 +11,7 @@ import SignInScreen from "./SignInScreen";
 import SignUpScreen from "./SignUpScreen";
 import { useAuthenticationStatus } from "@nhost/react";
 import { ActivityIndicator } from "react-native-web";
+import LogOut from "./LogOut";
 
 const Drawer = createDrawerNavigator()
 
@@ -37,6 +38,7 @@ function DrawerNav(){
             <Drawer.Screen name = "Perfil" component={Profile}/>
             <Drawer.Screen name = "Añadir Publicación" component={AddingPost}/>
             <Drawer.Screen name = "ContentPub" component={ContentPub} options={{}}/>
+            <Drawer.Screen name = "LogOut" component={LogOut} options={{}}/>
             </>
             )}
         </Drawer.Navigator>

@@ -28,8 +28,11 @@ const SignInScreen = () => {
     });
     if (result.error) {
       Alert.alert("Error", result.error.message);
+    }else{
+      Alert.alert("Bienvenido");
     }
-    console.log(result);
+
+    //console.log(result);
   };
 
   const onForgotPasswordPressed = () => {
@@ -37,7 +40,6 @@ const SignInScreen = () => {
   };
 
   const onSignUpPress = () => {
-    console.log("auth correct");
     navigation.navigate("SignUpScreen");
   };
 

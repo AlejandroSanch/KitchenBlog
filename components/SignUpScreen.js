@@ -24,8 +24,9 @@ const SignUpScreen = () => {
     if (result.error) {
       Alert.alert("Error signing up", result.error.message);
     } else {
+      Alert.alert("Registro Exitoso");
       navigation.navigate("SignInScreen");
-      Alert.alert("Registro Exitoso")
+      
     }
 
     console.log(result);

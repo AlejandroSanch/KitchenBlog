@@ -72,6 +72,10 @@ const ContentPub = () => {
             Image.getSize(imageUri, (width, height) => setRatio(width / height));
         }},[imageUri])
 
+        if(!imageUri){
+            return <ActivityIndicator/>
+          }
+
     if (!pin){
         return <Text style={styles.title}>Pin not found</Text>
     }

@@ -1,6 +1,6 @@
 import { useState, React, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import {Text, View, Image, StyleSheet, Pressable} from "react-native";
+import {Text, View, Image, StyleSheet, Pressable, ActivityIndicator} from "react-native";
 import {AntDesign} from "@expo/vector-icons";
 import { NhostClient, useNhostClient } from "@nhost/react";
 
@@ -34,6 +34,10 @@ const Pin = (props) => {
   const goToPinPage = () => {
     navigation.navigate("ContentPub", {id});
   };
+
+  if(!imageUri){
+    return <ActivityIndicator/>
+  }
 
     return(
     <Pressable onPress= {goToPinPage} style={styles.pin}>
