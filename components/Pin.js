@@ -2,17 +2,32 @@ import { useState, React, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {Text, View, Image, StyleSheet, Pressable} from "react-native";
 import {AntDesign} from "@expo/vector-icons";
+import { NhostClient, useNhostClient } from "@nhost/react";
 
 const Pin = (props) => {
 
   const navigation = useNavigation();
+  const nhost = useNhostClient();
   const {id, image, title} =props.pin;
+  const [imageUri, setImageUri]=useState("");
   const [ratio, setRatio] = useState(1);
 
+  const fetchImage =async () => {
+    const result = await nhost.storage.getPresignedUrl({
+        fileId: image 
+     });
+     setImageUri(result.presignedUrl.url);
+     console.log(result);
+  }
+
   useEffect(() =>{
-    if(image){
-        Image.getSize(image, (width, height) => setRatio(width/height));
-    }},[image])
+    fetchImage();
+    },[image]);
+  
+  useEffect(() =>{
+    if(imageUri){
+        Image.getSize(imageUri, (width, height) => setRatio(width/height));
+    }},[imageUri])
 
   const onLike = () => {};
 
@@ -23,7 +38,7 @@ const Pin = (props) => {
     return(
     <Pressable onPress= {goToPinPage} style={styles.pin}>
         <View>
-             <Image source={{uri: image
+             <Image source={{uri: imageUri
             }}alt="Alternate Text"size="xs" style={[styles.image, {aspectRatio: ratio}]}/>
             <View>
             <Pressable onPress={onLike} style={styles.heartBtn}>

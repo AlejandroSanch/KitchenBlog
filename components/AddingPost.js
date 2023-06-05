@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Image, View, ScrollView, StyleSheet} from 'react-native';
+import { Button, Image, View, ScrollView, StyleSheet, Platform, Alert} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { TextInput } from 'react-native-gesture-handler';
 import { TextArea, Box, NativeBaseProvider, useNativeBase } from 'native-base';
@@ -20,7 +20,7 @@ const CREATE_PIN_MUTATION = `mutation MyMutation ($image: String!, $title: Strin
 }`;
 
 export default function AddingPost() {
-  const [image, setImage] = useState(null);
+  const [imageUri, setImageUri] = useState(null);
   const [title, setTitle] =useState("");
   const [ingredients, setIngredients] =useState("");
   const [preparation, setPreparation] =useState("");
@@ -28,10 +28,42 @@ export default function AddingPost() {
   const nhost = useNhostClient();
   const navigation = useNavigation();
 
+  const uploadFile = async () => {
+
+    if(!imageUri){
+      return{
+        error:{ 
+          message: "no image selected",
+        },
+      }
+    }
+
+    const uri = Platform.OS === "ios" ? imageUri.replace("file://",""): imageUri;
+
+    const result = await nhost.storage.upload({
+     file: {
+      name: "123.png",
+      type: "image/png",
+      uri,
+     }, 
+    });
+    return result;
+
+  }
+
+
   const onSubmit= async () => {
+
+     const UploadResult = await uploadFile();
+
+     if (UploadResult?.error){
+        Alert.alert("error uploading image", UploadResult.error.message)
+        return;
+     }
+
     const result = await nhost.graphql.request(CREATE_PIN_MUTATION,{
       title,
-      image: "https://static.wikia.nocookie.net/mamarre-estudios-espanol/images/5/54/CUVcOWP4.jpg/revision/latest/thumbnail/width/360/height/360?cb=20201009210428&path-prefix=es",
+      image: UploadResult.fileMetadata.id,
       ingredients,
       preparation,
     })
@@ -41,7 +73,7 @@ export default function AddingPost() {
       console.log("error creating the post");
     }else{
       navigation.goBack();
-    }
+    } 
 
   };
 
@@ -56,7 +88,7 @@ export default function AddingPost() {
     console.log(result);
 
     if (!result.canceled) {
-      setImage(result.uri);
+      setImageUri(result.uri);
     }
   };
 
@@ -65,7 +97,7 @@ export default function AddingPost() {
         <ScrollView>
             <View style={styles.root}>
                 <Button title="Subir una Foto" onPress={pickImage} />
-                {image && <Image source={{ uri: image }} style={styles.image}/>}
+                {imageUri && <Image source={{ uri: imageUri }} style={styles.image}/>}
                 <TextInput placeholder='Titulo de la Receta' value={title} onChangeText={setTitle} style={styles.input}/>
                 <Box alignItems="center" w="100%">
                     <TextArea h={20} style={styles.input} placeholder="Ingredientes" value={ingredients} onChangeText={setIngredients}  />
