@@ -36,6 +36,7 @@ function DrawerNav(){
             <Drawer.Screen name = "Menu Principal" component={Home}/>
             <Drawer.Screen name = "Perfil" component={Profile}/>
             <Drawer.Screen name = "Añadir Publicación" component={AddingPost}/>
+            <Drawer.Screen name = "ContentPub" component={ContentPub} options={{}}/>
             </>
             )}
         </Drawer.Navigator>

@@ -42,7 +42,8 @@ const ContentPub = () => {
     const fetchPin = async (pinId) => {
         const response = await nhost.graphql.request(GET_PIN_QUERY,{id: pinId});
         if(response.error){
-            Alert.alert("Error fetching the pin");
+            console.log("error fetching pin");
+            console.log(response);
         }else{
             setPin(response.data.pins_by_pk);
         }
@@ -58,7 +59,7 @@ const ContentPub = () => {
         }},[pin])
 
     if (!pin){
-        return <Text>Pin not found</Text>
+        return <Text style={styles.title}>Pin not found</Text>
     }
 
     return(
